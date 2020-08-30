@@ -27,7 +27,15 @@ $.getJSON(url, function(data) {
   var RawData = data["Time Series (Daily)"]; 
   
   var AllData = extractDates(RawData);
-  
+  if (AllData.length <1)
+  {
+    
+    document.getElementById("demo").innerHTML = "Looks like that ";
+    return;
+  }
+
+
+
   var begin = (AllData[AllData.length-1]["1. open"]); 
   var end = (AllData[0]["4. close"]); 
   var stockAmount = document.getElementById("AmountEntered").value/parseFloat(begin); 
@@ -43,19 +51,22 @@ $.getJSON(url, function(data) {
   
 
   
-  var total = (parseFloat(end) * stockAmount);
-  console.log(total);
+  
+  
   
   for (var i = 0; i < AllData.length; i++) {
     if (AllData[i]["7. dividend amount"] != "0.0000")
     {
-      total = total + parseFloat(AllData[i]["7. dividend amount"]);
+        var dividend = parseFloat(AllData[i]["7. dividend amount"]);
+        var openPrice = parseFloat(AllData[i]["1. open"]);
+        var reinvestment = dividend/openPrice;
+        stockAmount = stockAmount + reinvestment;
     }
     
 }
   
   
-  
+ var total = (parseFloat(end) * stockAmount);
   
   document.getElementById("demo").innerHTML = total;
 })
