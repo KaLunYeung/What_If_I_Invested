@@ -1,3 +1,4 @@
+
 function extractDates(jsonData)
 {
   var intendedData = [];
@@ -18,12 +19,12 @@ function extractDates(jsonData)
 
 function calculate()
 {
-  var url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol='
+  var url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=';
   url = url + document.getElementById("stockSymbol").value;
-  url = url + '&outputsize=full&apikey=YVNFFRKV90K4JN0B'
+  url = url + '&outputsize=full&apikey=YVNFFRKV90K4JN0B';
 $.getJSON(url, function(data) {
     
-  var RawData = data["Time Series (Daily)"]; //extract dates
+  var RawData = data["Time Series (Daily)"]; 
   
   var AllData = extractDates(RawData);
   
