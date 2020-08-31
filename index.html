@@ -1,16 +1,28 @@
 <html>
 <body>
     <link rel="stylesheet" href="style.css" />
-<p>Enter Stock Symbol: <input type="text" id="stockSymbol" value="AAPL"></p>
+
+
+
+
+
+
+
+
+
+<p>Enter Stock Symbol:<input id="stockSymbol" type="text" name="myCountry" placeholder="Ex.AAPL"></p>
 <p>Enter Amount: <input type="text" id="AmountEntered" value="1000"></p>
+
 <p>Starting Date: <input type="date" id="BeginDate" value="2000-01-03"></p>
 <p>Ending Date: <input type="date" id="EndDate" value="2020-08-21"></p>
 <button onclick="calculate()">Calculate</button>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
+<div id="loader" class="loader"></div>
 <h1 id="FinalAmount"></h1> 
 <h1 id = "Return"></h1>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 
 <div id="canvas-holder">
 <canvas id="myChart" width="400" height="400">Your browser does not support the HTML5 canvas tag.</canvas>

@@ -23,6 +23,12 @@ function extractDates(jsonData)
 
 function calculate()
 {
+  if (chart!=null){chart.destroy();}
+  document.getElementById("FinalAmount").innerHTML = "";
+  document.getElementById("Return").innerHTML = "";
+  document.getElementById("loader").style.display = 'block';
+  
+  
   var url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=';
   url = url + document.getElementById("stockSymbol").value;
   url = url + '&outputsize=full&apikey=YVNFFRKV90K4JN0B';
@@ -39,7 +45,7 @@ $.getJSON(url, function(data) {
 
   if (tradingDate <1)
   {
-    
+    document.getElementById("loader").style.display = 'none';
     document.getElementById("FinalAmount").innerHTML = "Looks like that the sepcified range does not have one single trading day ";
     document.getElementById("Return").innerHTML = "";
     return;
@@ -73,7 +79,11 @@ $.getJSON(url, function(data) {
 
   
   var endTotal = dailyNetworth[dailyNetworth.length-1];
+  
+ 
   showGraph(tradingDate,   dailyNetworth, document.getElementById("stockSymbol").value);
+  
+  document.getElementById("loader").style.display = 'none';
   document.getElementById("FinalAmount").innerHTML = "Final Amount = $" + endTotal.toFixed(2);
   document.getElementById("Return").innerHTML = "Return On Investment: " + (((endTotal-initialAmount) /initialAmount) * 100).toFixed(2) + "%";
 
@@ -86,13 +96,13 @@ $.getJSON(url, function(data) {
 
 
 
-
+var chart;
 
 function showGraph(x_axis,y_axis,symbol){
   var ctx = document.getElementById('myChart').getContext("2d");
 
 
-  var chart = new Chart(ctx, {
+  chart = new Chart(ctx, {
       
       type: 'line',
 
