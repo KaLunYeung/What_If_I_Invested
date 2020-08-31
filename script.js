@@ -40,13 +40,14 @@ $.getJSON(url, function(data) {
   if (tradingDate <1)
   {
     
-    document.getElementById("demo").innerHTML = "Looks like that there was no trading day in th specified range ";
+    document.getElementById("FinalAmount").innerHTML = "Looks like that the sepcified range does not have one single trading day ";
+    document.getElementById("Return").innerHTML = "";
     return;
   }
   
   var begin = (tradingInformation[tradingInformation.length-1]["1. open"]); 
-  
-  var stockAmount = document.getElementById("AmountEntered").value/parseFloat(begin); 
+  var initialAmount = document.getElementById("AmountEntered").value;
+  var stockAmount = initialAmount/parseFloat(begin); 
   
   for (var i = tradingInformation.length-1; i >= 0; i--) {
 
@@ -60,7 +61,7 @@ $.getJSON(url, function(data) {
         var dividend = parseFloat(tradingInformation[i]["7. dividend amount"]);
         var openPrice = parseFloat(tradingInformation[i]["1. open"]);
         var reinvestment = dividend/openPrice;
-        console.log(dividend);
+       
         stockAmount = stockAmount + reinvestment;
     }
 
@@ -69,12 +70,12 @@ $.getJSON(url, function(data) {
     dailyNetworth.push(currentNetWorth);
 
   }
-  console.log(tradingDate);
-  console.log(dailyNetworth);
+
   
   var endTotal = dailyNetworth[dailyNetworth.length-1];
   showGraph(tradingDate,   dailyNetworth, document.getElementById("stockSymbol").value);
-  document.getElementById("demo").innerHTML = endTotal;
+  document.getElementById("FinalAmount").innerHTML = "Final Amount = $" + endTotal.toFixed(2);
+  document.getElementById("Return").innerHTML = "Return On Investment: " + (((endTotal-initialAmount) /initialAmount) * 100).toFixed(2) + "%";
 
 
 
@@ -92,10 +93,10 @@ function showGraph(x_axis,y_axis,symbol){
 
 
   var chart = new Chart(ctx, {
-      // The type of chart we want to create
+      
       type: 'line',
 
-      // The data for our dataset
+      
       data: {
           labels: x_axis,
           datasets: [{
@@ -107,7 +108,7 @@ function showGraph(x_axis,y_axis,symbol){
           }]
       },
 
-      // Configuration options go here
+      
       options: {responsive: true,
         maintainAspectRatio: false}
   });

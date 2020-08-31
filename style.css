@@ -1,14 +1,13 @@
-p {
-    color: red;
-    text-align: left;
-  } 
 
 
-  canvas-holder {
-      background-color: #FFFFFF;
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      right: 8px;
-      bottom: 8px;
-  }
+
+body {
+    background-color: ADD8E6;
+    font-family: HANSIEF;
+    color: 704270;
+    text-align: center;
+}
+button {
+  margin: 0 auto;
+  display: block;
+}
