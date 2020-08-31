@@ -89,8 +89,7 @@ $.getJSON(url, function(data) {
 
 function showGraph(x_axis,y_axis,symbol){
   var ctx = document.getElementById('myChart').getContext("2d");
-  ctx.canvas.width = 0;
-  ctx.canvas.height = 0;
+
 
   var chart = new Chart(ctx, {
       // The type of chart we want to create
@@ -109,7 +108,8 @@ function showGraph(x_axis,y_axis,symbol){
       },
 
       // Configuration options go here
-      options: {}
+      options: {responsive: true,
+        maintainAspectRatio: false}
   });
 
 }
